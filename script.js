@@ -48,6 +48,8 @@ const customers = [
 
 let clientwant;
 let timeoutID;
+let monthlyInterval;
+let customerInterval;
 
 const bookdeliver = document.createElement("button");
 const lemonadedeliver = document.createElement("button");
@@ -121,6 +123,23 @@ function deliver(productIdx) {
     product.canDecrement = false;
     totalcash += product.price;
     updateDisplay();
+    if (totalcash > 81) {
+      message = "YOU WIN, promoted master class!";
+      document.body.style.backgroundColor = "limegreen";
+      clearTimeout(timeoutID);
+      showWarning(message, true);
+      btn1.disabled = true;
+      btn2.disabled = true;
+      btn3.disabled = true;
+      btn4.disabled = true;
+      bookdeliver.disabled = true;
+      lemonadedeliver.disabled = true;
+      shoesdeliver.disabled = true;
+      laptopdeliver.disabled = true;
+      clearInterval(monthlyInterval);
+      clearInterval(customerInterval);
+      deliverEl.innerHTML = "You Win";
+    }
   } else if (product.stock <= 0) {
     showWarning(
       `Not enough product (${product.stock} ${product.name}) in stock`
@@ -177,18 +196,16 @@ updateDisplay();
 let customerMonthlyCount;
 const custCount = [5000, 7000, 11000];
 
-let customerInterval = setInterval(randomCustomer, customerMonthlyCount = 7000);
-console.log(customerMonthlyCount);
-let monthlyInterval = setInterval(() => {
+customerInterval = setInterval(randomCustomer, (customerMonthlyCount = 7000));
+monthlyInterval = setInterval(() => {
   customerMonthlyCount = getRandomItem(custCount);
-  console.log(customerMonthlyCount);
-  
+
   let monthlyExpense = calcMonthlyExpenses();
   let message = `Monthly expenses paid ${monthlyExpense} $$$`;
   totalcash -= monthlyExpense;
   showWarning(message);
   updateDisplay();
-  if (totalcash <= -100) {
+  if (totalcash <= -80) {
     message = "GAME OVER, you ran out of money!";
     document.body.style.backgroundColor = "darkred";
     clearTimeout(timeoutID);
