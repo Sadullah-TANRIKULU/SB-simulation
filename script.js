@@ -1,4 +1,4 @@
-let totalcash = 40;
+let totalcash = 74;
 const investAmount = 5;
 
 const totalCashDisplay = document.getElementById("totalcash");
@@ -12,13 +12,14 @@ const deliverEl = document.getElementById("deliver");
 totalCashDisplay.innerHTML = `Total: ${totalcash} $`;
 
 class Product {
-  constructor(name, cost, expense, price, stock = 0) {
+  constructor(name, cost, expense, price, image = './assets/default-product.png', stock = 0) {
     this.name = name;
     this.cost = cost;
     this.expense = expense;
     this.price = price;
     this.stock = stock;
     this.canDecrement = true;
+    this.image = image
   }
 }
 
@@ -29,10 +30,10 @@ class Customer {
 }
 
 const products = [
-  new Product("Book", 17, 10, 5),
-  new Product("Lemonade", 10, 2, 4),
-  new Product("Shoes", 23, 13, 11),
-  new Product("Laptop", 28, 15, 17),
+  new Product("Book", 17, 10, 5, './assets/book.png'),
+  new Product("Lemonade", 10, 2, 4, './assets/lemonade.png'),
+  new Product("Shoes", 23, 13, 11, './assets/shoes.png'),
+  new Product("Laptop", 28, 15, 17, './assets/linux-laptop.png'),
 ];
 
 const customers = [
@@ -44,6 +45,9 @@ const customers = [
   new Customer("Ismail"),
   new Customer("Olha"),
   new Customer("Myhkhailo"),
+  new Customer("Rana"),
+  new Customer("Cedooooo"),
+
 ];
 
 let clientwant;
@@ -86,7 +90,7 @@ function showWarning(message, permanent = false) {
 }
 
 function updateDisplay() {
-  totalCashDisplay.innerHTML = `Total: ${totalcash}`;
+  totalCashDisplay.innerHTML = `Total: ${totalcash} $`;
   bookStock.innerHTML = `${products[0].name} Stock: ${products[0].stock}`;
   lemonadeStock.innerHTML = `${products[1].name} Stock: ${products[1].stock}`;
   shoesStock.innerHTML = `${products[2].name} Stock: ${products[2].stock}`;
@@ -151,22 +155,18 @@ const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
 const btn4 = document.getElementById("btn4");
-btn1.addEventListener("click", () => {
-  invest(0);
-  checkValues(0);
-});
-btn2.addEventListener("click", () => {
-  invest(1);
-  checkValues(1);
-});
-btn3.addEventListener("click", () => {
-  invest(2);
-  checkValues(2);
-});
-btn4.addEventListener("click", () => {
-  invest(3);
-  checkValues(3);
-});
+
+const investment = document.getElementById("investment");
+function triggerInvest(e) {
+  if (e.target.tagName !== "BUTTON") return;
+
+  const id = e.target.dataset.id;
+  if (!id) return;
+
+  invest(Number(id));
+  checkValues(Number(id));
+}
+investment.addEventListener("click", triggerInvest);
 
 bookdeliver.addEventListener("click", () => deliver(0));
 lemonadedeliver.addEventListener("click", () => deliver(1));
@@ -185,7 +185,7 @@ function randomCustomer() {
   products.forEach((p) => (p.canDecrement = true));
 
   if (randomCustomer && randomProduct) {
-    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name}<br>`;
+    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name} <img src="${clientwant.image}" width="20" > <br>`;
   } else {
     deliverEl.innerText = `No customer yet`;
   }
@@ -240,10 +240,3 @@ function checkAllButtons() {
 }
 
 checkAllButtons();
-
-// function gg(e) {
-//   if (e.target !== "BUTTON") return
-
-//   invest(e.target.dataset.id)
-
-// }

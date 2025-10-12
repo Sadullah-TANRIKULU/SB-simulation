@@ -5,37 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mini Business Simulation</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="./assets/bulb-money-business.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="./assets/bulb-money-business.png"
+      type="image/x-icon"
+    />
   </head>
   <body>
-    <h1>Mini Business Simulation</h1>
+    <h1
+      title="
+    How to Play!
+    Goal: reach +81$ total cash as early as possible
+    Game Over: -80$
 
-    <section id="warning"></section>
+    Customers: 
+    -sometimes too fast, sometimes too slow, catch opportunities
+    -smart is waiting first customer's want to invest
     
+    Products: can invest all but be aware of monthly expenses
+    'Book':5 ,
+    'Lemonade':4 ,
+    'Shoes':11 ,
+    'Laptop':17 ,
+    total expense: 37$
+    
+    Start Cash: 2x bigger than monthly expenses
+    
+    No Stock = No monthly expenses
+    "
+    >
+      <img src="./assets/OH3E9O0.jpg" width="50px" /> How CEO You are #Skill
+      Checker#
+    </h1>
+    <p>Run this business to success, if you can!</p>
+
     <section id="current">
-      <div id="totalcash"></div>
+      <div
+        id="totalcash"
+        title="Starter amount is 2x bigger than your monthly expenses"
+      ></div>
     </section>
-    
+    <section id="warning">
+      <span
+        id="warningSectionPlaceholder"
+        style="color: #b0b0b0; font-size: small"
+        >You'll see notifications here!</span
+      >
+    </section>
+
+    <section id="deliver"></section>
+    <br />
+
     <section id="investment">
       <div id="book">
         <div id="bookstock"></div>
-        <button id="btn1">Invest Book 17$</button>
+        <button id="btn1" data-id="0">
+          Invest Book <img src="./assets/book.png" width="20" /> 17 $
+        </button>
       </div>
       <div id="lemonade">
         <div id="lemonadestock"></div>
-        <button id="btn2">Invest Lemonade 10$</button>
+        <button id="btn2" data-id="1">
+          Invest Lemonade <img src="./assets/lemonade.png" width="20" /> 10 $
+        </button>
       </div>
       <div id="shoes">
         <div id="shoesstock"></div>
-        <button id="btn3">Invest Shoes 23$</button>
+        <button id="btn3" data-id="2">
+          Invest Shoes <img src="./assets/shoes.png" width="20" /> 23 $
+        </button>
       </div>
-            <div id="laptop">
+      <div id="laptop">
         <div id="laptopstock"></div>
-        <button id="btn4">Invest Laptop 28$</button>
+        <button id="btn4" data-id="3">
+          Invest Laptop <img src="./assets/linux-laptop.png" width="20" /> 28 $
+        </button>
       </div>
     </section>
-    
-    <section id="deliver"></section>
 
     <script src="script.js"></script>
   </body>

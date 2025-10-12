@@ -16,3 +16,6 @@ if you dont have enough capital to pay expenses monthly
 
 
 ## What I plan to do
+
+timing record with a mock user name can be added to list winners
+
