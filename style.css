@@ -1,5 +1,250 @@
-#warning {
-    color: #ff0000;
-    font-size: x-large;
-    height: 3.5rem;
+/* style.css */
+/* Define CSS variables globally for easy theming */
+:root {
+    --color-dark-green: #1c352d;
+    --color-sage-green: #a6b28b;
+    --color-peach: #f5c9b0;
+    --color-ivory: #f9f6f3;
+
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 1.5rem;
+
+    --font-size-base: 16px;
+    --font-size-large: 1.5rem;
+    --font-size-small: 0.875rem;
+
+    --border-radius: 8px;
+    --box-shadow: 0 2px 6px rgba(28, 53, 45, 0.25);
+
+    --animation-pulse-duration: 3s;
+    --animation-pulse-scale: 1.05;
 }
+
+/* Reset and base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    font-family: var(--font-family);
+    background-color: var(--color-ivory);
+    color: var(--color-dark-green);
+    line-height: 1.5;
+    padding: var(--spacing-large);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90vw;
+}
+
+/* Header */
+h1 {
+    font-size: var(--font-size-large);
+    color: var(--color-dark-green);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-small);
+    max-width: 600px;
+    margin-bottom: var(--spacing-medium);
+    cursor: pointer;
+    /* pointer beyond spaces */
+    user-select: none;
+}
+
+h1 img {
+    border-radius: var(--border-radius);
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    animation: pulseWave var(--animation-pulse-duration) ease-in-out infinite;
+}
+
+/* Pulsing water wave animation */
+@keyframes pulseWave {
+
+    0%,
+    100% {
+        transform: scale(1.30);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(var(--animation-pulse-scale));
+        opacity: 0.8;
+    }
+}
+
+/* Paragraph under header */
+p {
+    font-size: var(--font-size-base);
+    max-width: 600px;
+    margin-bottom: var(--spacing-large);
+}
+
+/* Notification warning section */
+#warning {
+    background-color: var(--color-peach);
+    color: #ff0000;
+    /* clear warning red */
+    font-size: 1.25rem;
+    /* scalable print size */
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 100%;
+    min-width: 50vw;
+    height: 3.5rem;
+    margin-bottom: var(--spacing-large);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Responsive adjustment for very small screens */
+@media (max-width: 450px) {
+    #warning {
+        font-size: 1rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    #deliver {
+        min-height: 60px;
+        width: 95%;
+        padding: 0.5rem;
+    }
+
+    #bookstock, #lemonadestock, #shoesstock, #laptopstock {
+    font-size: var(--font-size-small);
+}
+}
+
+/* Current cash display */
+#current {
+    margin-bottom: var(--spacing-large);
+}
+
+#totalcash {
+    background-color: var(--color-sage-green);
+    color: var(--color-ivory);
+    font-weight: bold;
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    font-size: var(--font-size-large);
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Make the grid adapt better to smaller screens */
+#investment {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-large);
+    max-width: 100%;
+    /* Use full width on mobile */
+    margin-bottom: var(--spacing-large);
+    padding: 10px;
+    /* Add some padding for smaller screens */
+}
+
+/* Ensure individual div containers are flexible */
+#investment>div {
+    background-color: var(--color-ivory);
+    border: 1px solid var(--color-sage-green);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-medium);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    /* Full width within grid cells */
+}
+
+/* Make buttons more touch-friendly and flexible on mobile */
+#investment button {
+    background-color: var(--color-sage-green);
+    border: none;
+    color: var(--color-ivory);
+    font-weight: 600;
+    cursor: pointer;
+    padding: var(--spacing-small);
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 -3px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    /* Buttons span full width for easier tapping */
+    font-size: 14px;
+    /* Slightly larger text for small screens */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Improve hover/focus states for smaller screens if needed */
+#investment button:hover,
+#investment button:focus {
+    background-color: var(--color-dark-green);
+    transform: scale(1.05);
+    outline: none;
+}
+
+/* Optional: Adjust the img size within buttons for mobile */
+#investment button img {
+    width: 20px;
+    height: auto;
+    /* Keep aspect ratio */
+}
+
+
+/* Stock display area styling */
+#bookstock,
+#lemonadestock,
+#shoesstock,
+#laptopstock {
+    height: 30px;
+    margin-bottom: var(--spacing-small);
+    background-color: var(--color-peach);
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Deliver section styling */
+#deliver {
+    max-width: 900px;
+    width: 90%;
+    /* Use relative width for flexibility */
+    min-height: 80px;
+    margin-top: var(--spacing-large);
+    margin-left: auto;
+    /* Center horizontally */
+    margin-right: auto;
+    /* Center horizontally */
+    border: 2px dashed var(--color-sage-green);
+    border-radius: var(--border-radius);
+    background-color: var(--color-ivory);
+    box-shadow: var(--box-shadow);
+    padding: var(--spacing-small);
+    /* Add some padding inside */
+}
+
+/* Make clickable areas pointer on app beyond spaces */
+button,
+h1,
+#warning,
+#totalcash {
+    cursor: pointer;
+}
+

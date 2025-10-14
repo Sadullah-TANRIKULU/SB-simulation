@@ -2,22 +2,20 @@
 
 ### Mini Business Simulation Game
 
+this simulation scales, 
+if you take care of each customer
+if you enough smart to invest in profitable and sustainable product
+
+you shouldn't invest all products simultaneously 
+if you dont have enough capital to pay expenses monthly
+
+
+
 ## Last what I do
-
-
-
-
-
-
-
 
 
 
 ## What I plan to do
 
-* if customer wants lemonade, i can not deliver book
-customer wants just 1 product, i should not be able to deliver many to same customer
+timing record with a mock user name can be added to list winners
 
-* recursive setTimeout function could be used to make it similar to real life 
-  - in regular monthly financial timeframes (40 secs)
-  - randomized customers like in real life(3, 7, 11 secs)

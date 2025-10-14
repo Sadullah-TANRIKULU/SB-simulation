@@ -5,33 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mini Business Simulation</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="./assets/OH3E9O0.jpg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="./assets/bulb-money-business.png"
+      type="image/x-icon"
+    />
   </head>
   <body>
-    <h1>Mini Business Simulation</h1>
+    <main>
+      <h1
+        title="
+      How to Play!
+      Goal: reach +81$ total cash as early as possible
+      Game Over: -80$
+      
+      Customers: 
+      -sometimes too fast, sometimes too slow, catch opportunities
+      -smart is waiting first customer's want to invest
+      
+      Products: can invest all but be aware of monthly expenses
+      'Book':5 ,
+      'Lemonade':4 ,
+      'Shoes':11 ,
+      'Laptop':17 ,
+      total expense: 37$
+      
+      Start Cash: 2x bigger than monthly expenses
+    
+      No Stock = No monthly expenses
+      "
+      >
+        <img src="./assets/OH3E9O0.jpg" width="50px" /> How CEO You are <br />
+        #Skill Checker#
+      </h1>
+      <p>Run this business to success, if you can!</p>
 
-    <section id="warning"></section>
-    
-    <section id="current">
-      <div id="totalcash"></div>
-    </section>
-    
-    <section id="investment">
-      <div id="book">
-        <div id="bookstock"></div>
-        <button id="btn1">Invest Book 17$</button>
-      </div>
-      <div id="lemonade">
-        <div id="lemonadestock"></div>
-        <button id="btn2">Invest Lemonade 10$</button>
-      </div>
-      <!-- <button id="btn3">Invest Shoe</button>
-      <button id="btn4">Invest Gipfeli</button> -->
-    </section>
-    
-    <section id="deliver"></section>
+      <section id="current">
+        <div
+          id="totalcash"
+          title="Starter amount is 2x bigger than your monthly expenses"
+        ></div>
+      </section>
+      <section id="warning">
+        <span
+          id="warningSectionPlaceholder"
+          style="color: #b0b0b0; font-size: small"
+          >You'll see notifications here!</span
+        >
+      </section>
 
+      <section id="deliver"></section>
+      <br />
+      <section id="investment">
+        <div id="book">
+          <div id="bookstock"></div>
+          <button id="btn1" data-id="0" data-type="invest">
+            Invest Book <img src="./assets/book.png" width="20" /> 17 $
+          </button>
+          <button id="btn11" data-id="0" data-type="deliver">
+            Deliver Book <img src="./assets/book.png" width="20" /> 5 $
+          </button>
+        </div>
+        <div id="lemonade">
+          <div id="lemonadestock"></div>
+          <button id="btn2" data-id="1" data-type="invest">
+            Invest Lemonade <img src="./assets/lemonade.png" width="20" /> 10 $
+          </button>
+          <button id="btn21" data-id="1" data-type="deliver">
+            Deliver Lemonade <img src="./assets/lemonade.png" width="20" /> 4 $
+          </button>
+        </div>
+        <div id="shoes">
+          <div id="shoesstock"></div>
+          <button id="btn3" data-id="2" data-type="invest">
+            Invest Shoes <img src="./assets/shoes.png" width="20" /> 23 $
+          </button>
+          <button id="btn31" data-id="2" data-type="deliver">
+            Deliver Shoes <img src="./assets/shoes.png" width="20" /> 11 $
+          </button>
+        </div>
+        <div id="laptop">
+          <div id="laptopstock"></div>
+          <button id="btn4" data-id="3" data-type="invest">
+            Invest Laptop <img src="./assets/linux-laptop.png" width="20" /> 28
+            $
+          </button>
+          <button id="btn41" data-id="3" data-type="deliver">
+            Deliver Laptop <img src="./assets/linux-laptop.png" width="20" /> 17
+            $
+          </button>
+        </div>
+      </section>
+    </main>
     <script src="script.js"></script>
-     <!-- <script src="app-try.js"></script> -->
   </body>
 </html>
