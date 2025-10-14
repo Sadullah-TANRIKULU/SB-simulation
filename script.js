@@ -12,14 +12,21 @@ const deliverEl = document.getElementById("deliver");
 totalCashDisplay.innerHTML = `Total: ${totalcash} $`;
 
 class Product {
-  constructor(name, cost, expense, price, image = './assets/default-product.png', stock = 0) {
+  constructor(
+    name,
+    cost,
+    expense,
+    price,
+    image = "./assets/default-product.png",
+    stock = 0
+  ) {
     this.name = name;
     this.cost = cost;
     this.expense = expense;
     this.price = price;
     this.stock = stock;
     this.canDecrement = true;
-    this.image = image
+    this.image = image;
   }
 }
 
@@ -30,10 +37,10 @@ class Customer {
 }
 
 const products = [
-  new Product("Book", 17, 10, 5, './assets/book.png'),
-  new Product("Lemonade", 10, 2, 4, './assets/lemonade.png'),
-  new Product("Shoes", 23, 13, 11, './assets/shoes.png'),
-  new Product("Laptop", 28, 15, 17, './assets/linux-laptop.png'),
+  new Product("Book", 17, 10, 5, "./assets/book.png"),
+  new Product("Lemonade", 10, 2, 4, "./assets/lemonade.png"),
+  new Product("Shoes", 23, 13, 11, "./assets/shoes.png"),
+  new Product("Laptop", 28, 15, 17, "./assets/linux-laptop.png"),
 ];
 
 const customers = [
@@ -47,35 +54,12 @@ const customers = [
   new Customer("Myhkhailo"),
   new Customer("Rana"),
   new Customer("Cedooooo"),
-
 ];
 
 let clientwant;
 let timeoutID;
 let monthlyInterval;
 let customerInterval;
-
-const bookdeliver = document.createElement("button");
-const lemonadedeliver = document.createElement("button");
-const shoesdeliver = document.createElement("button");
-const laptopdeliver = document.createElement("button");
-
-bookdeliver.id = "btn11";
-lemonadedeliver.id = "btn21";
-shoesdeliver.id = "btn31";
-laptopdeliver.id = "btn41";
-
-bookdeliver.innerText = `Deliver ${products[0].name} ${products[0].price}$`;
-lemonadedeliver.innerText = `Deliver ${products[1].name} ${products[1].price}$`;
-shoesdeliver.innerText = `Deliver ${products[2].name} ${products[2].price}$`;
-laptopdeliver.innerText = `Deliver ${products[3].name} ${products[3].price}$`;
-
-document.getElementById("book").appendChild(bookdeliver);
-document.getElementById("lemonade").appendChild(lemonadedeliver);
-document.getElementById("shoes").appendChild(shoesdeliver);
-document.getElementById("laptop").appendChild(laptopdeliver);
-
-const buttons = [bookdeliver, lemonadedeliver, shoesdeliver, laptopdeliver];
 
 function showWarning(message, permanent = false) {
   warningSection.style.color = permanent ? "white" : "black";
@@ -136,10 +120,10 @@ function deliver(productIdx) {
       btn2.disabled = true;
       btn3.disabled = true;
       btn4.disabled = true;
-      bookdeliver.disabled = true;
-      lemonadedeliver.disabled = true;
-      shoesdeliver.disabled = true;
-      laptopdeliver.disabled = true;
+      btn11.disabled = true;
+      btn21.disabled = true;
+      btn31.disabled = true;
+      btn41.disabled = true;
       clearInterval(monthlyInterval);
       clearInterval(customerInterval);
       deliverEl.innerHTML = "You Win";
@@ -155,23 +139,31 @@ const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
 const btn4 = document.getElementById("btn4");
+const btn11 = document.getElementById("btn11");
+const btn21 = document.getElementById("btn21");
+const btn31 = document.getElementById("btn31");
+const btn41 = document.getElementById("btn41");
+
+const buttons = [btn11, btn21, btn31, btn41];
 
 const investment = document.getElementById("investment");
 function triggerInvest(e) {
   if (e.target.tagName !== "BUTTON") return;
 
-  const id = e.target.dataset.id;
-  if (!id) return;
+  const id = Number(e.target.dataset.id);
+  const type = e.target.dataset.type;
 
-  invest(Number(id));
-  checkValues(Number(id));
+  console.log("id : ", id, " type : ", type);
+
+  if (type === "invest") {
+    invest(id);
+    checkValues(id);
+  } else if (type === "deliver") {
+    deliver(id);
+    checkValues(id);
+  }
 }
 investment.addEventListener("click", triggerInvest);
-
-bookdeliver.addEventListener("click", () => deliver(0));
-lemonadedeliver.addEventListener("click", () => deliver(1));
-shoesdeliver.addEventListener("click", () => deliver(2));
-laptopdeliver.addEventListener("click", () => deliver(3));
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -214,10 +206,10 @@ monthlyInterval = setInterval(() => {
     btn2.disabled = true;
     btn3.disabled = true;
     btn4.disabled = true;
-    bookdeliver.disabled = true;
-    lemonadedeliver.disabled = true;
-    shoesdeliver.disabled = true;
-    laptopdeliver.disabled = true;
+    btn11.disabled = true;
+    btn21.disabled = true;
+    btn31.disabled = true;
+    btn41.disabled = true;
     clearInterval(monthlyInterval);
     clearInterval(customerInterval);
     deliverEl.innerHTML = "Game Over";
@@ -225,11 +217,21 @@ monthlyInterval = setInterval(() => {
 }, 40000);
 
 // setting hidden attr true and removing it
+// function checkValues(value) {
+//   if (products[value].stock === 0) {
+//     buttons[value].setAttribute("hidden", true);
+//   } else {
+//     buttons[value].removeAttribute("hidden");
+//   }
+// }
 function checkValues(value) {
+  const deliverBtn = document.querySelector(`button[data-type="deliver"][data-id="${value}"]`);
+  if (!deliverBtn) return;
+
   if (products[value].stock === 0) {
-    buttons[value].setAttribute("hidden", true);
+    deliverBtn.setAttribute("hidden", true);
   } else {
-    buttons[value].removeAttribute("hidden");
+    deliverBtn.removeAttribute("hidden");
   }
 }
 
