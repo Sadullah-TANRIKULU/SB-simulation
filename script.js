@@ -1,4 +1,4 @@
-let totalcash = 74;
+let totalCash = 74;
 const investAmount = 5;
 
 const totalCashDisplay = document.getElementById("totalcash");
@@ -8,8 +8,20 @@ const shoesStock = document.getElementById("shoesstock");
 const laptopStock = document.getElementById("laptopstock");
 const warningSection = document.getElementById("warning");
 const deliverEl = document.getElementById("deliver");
+const currentNews = document.getElementById("current-news");
 
-totalCashDisplay.innerHTML = `Total: ${totalcash} $`;
+const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
+const btn3 = document.getElementById("btn3");
+const btn4 = document.getElementById("btn4");
+const btn11 = document.getElementById("btn11");
+const btn21 = document.getElementById("btn21");
+const btn31 = document.getElementById("btn31");
+const btn41 = document.getElementById("btn41");
+
+totalCashDisplay.innerText = `Total: ${totalCash} $`;
+
+const investment = document.getElementById("investment");
 
 class Product {
   constructor(
@@ -56,12 +68,25 @@ const customers = [
   new Customer("Cedooooo"),
 ];
 
-let clientwant;
+let clientwant = null;
 let timeoutID;
 let monthlyInterval;
 let customerInterval;
 
+const newsPool = [
+  "Tech boom increases demand for laptop and smart devices.",
+  "Fuel prices rise, investors turn to electric cars.",
+  "Summer heat drives people to buy more lemonade.",
+  "Everything's fine as usual, no special news",
+  "New fashion trends boost shoes sales worldwide.",
+  "Reading culture rises — book stores see record profits.",
+  "Cycling becomes the new fitness craze of the decade.",
+  "Coffee consumption surges among remote workers.",
+];
+
 function showWarning(message, permanent = false) {
+  if (timeoutID) clearTimeout(timeoutID);
+
   warningSection.style.color = permanent ? "white" : "black";
   if (permanent) {
     warningSection.innerText = message;
@@ -74,11 +99,12 @@ function showWarning(message, permanent = false) {
 }
 
 function updateDisplay() {
-  totalCashDisplay.innerHTML = `Total: ${totalcash} $`;
-  bookStock.innerHTML = `${products[0].name} Stock: ${products[0].stock}`;
-  lemonadeStock.innerHTML = `${products[1].name} Stock: ${products[1].stock}`;
-  shoesStock.innerHTML = `${products[2].name} Stock: ${products[2].stock}`;
-  laptopStock.innerHTML = `${products[3].name} Stock: ${products[3].stock}`;
+  totalCashDisplay.innerText = `Total: ${totalCash} $`;
+  bookStock.innerText = `${products[0].name} Stock: ${products[0].stock}`;
+  lemonadeStock.innerText = `${products[1].name} Stock: ${products[1].stock}`;
+  shoesStock.innerText = `${products[2].name} Stock: ${products[2].stock}`;
+  laptopStock.innerText = `${products[3].name} Stock: ${products[3].stock}`;
+  checkAllButtons();
 }
 
 function calcMonthlyExpenses() {
@@ -91,13 +117,19 @@ function calcMonthlyExpenses() {
   return totalExpense;
 }
 
+function disableAllButtons() {
+  [btn1, btn2, btn3, btn4, btn11, btn21, btn31, btn41].forEach((btn) => {
+    if (btn) btn.disabled = true;
+  });
+}
+
 function invest(productIdx) {
-  if (totalcash >= products[productIdx].cost) {
+  if (totalCash >= products[productIdx].cost) {
     products[productIdx].stock += investAmount;
-    totalcash -= products[productIdx].cost;
+    totalCash -= products[productIdx].cost;
     updateDisplay();
   } else {
-    showWarning(`Not enough money (${totalcash}$) to invest!`);
+    showWarning(`Not enough money (${totalCash}$) to invest!`);
   }
 }
 
@@ -109,24 +141,18 @@ function deliver(productIdx) {
   } else if (product.stock > 0 && product.canDecrement) {
     product.stock--;
     product.canDecrement = false;
-    totalcash += product.price;
+    totalCash += product.price;
     updateDisplay();
-    if (totalcash > 81) {
-      message = "YOU WIN, promoted master class!";
+    if (totalCash > 81) {
+      let message = "YOU WIN, promoted master class!";
       document.body.style.backgroundColor = "limegreen";
       clearTimeout(timeoutID);
       showWarning(message, true);
-      btn1.disabled = true;
-      btn2.disabled = true;
-      btn3.disabled = true;
-      btn4.disabled = true;
-      btn11.disabled = true;
-      btn21.disabled = true;
-      btn31.disabled = true;
-      btn41.disabled = true;
+      disableAllButtons();
       clearInterval(monthlyInterval);
       clearInterval(customerInterval);
-      deliverEl.innerHTML = "You Win";
+      deliverEl.innerText = "You Win";
+      return;
     }
   } else if (product.stock <= 0) {
     showWarning(
@@ -135,25 +161,11 @@ function deliver(productIdx) {
   }
 }
 
-const btn1 = document.getElementById("btn1");
-const btn2 = document.getElementById("btn2");
-const btn3 = document.getElementById("btn3");
-const btn4 = document.getElementById("btn4");
-const btn11 = document.getElementById("btn11");
-const btn21 = document.getElementById("btn21");
-const btn31 = document.getElementById("btn31");
-const btn41 = document.getElementById("btn41");
-
-const buttons = [btn11, btn21, btn31, btn41];
-
-const investment = document.getElementById("investment");
 function triggerInvest(e) {
   if (e.target.tagName !== "BUTTON") return;
 
   const id = Number(e.target.dataset.id);
   const type = e.target.dataset.type;
-
-  console.log("id : ", id, " type : ", type);
 
   if (type === "invest") {
     invest(id);
@@ -168,11 +180,33 @@ investment.addEventListener("click", triggerInvest);
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
+////////////////////////////////////////////////////////////////
+function getRandomProduct(productsArr) {
+  const randomNews = currentNews.innerText.toLowerCase();
 
+  const trending = productsArr.filter((p) => {
+    const lowerProduct = p.name.toLowerCase();
+    return randomNews.includes(lowerProduct);
+  });
+
+  const influenceChance = 0.489;
+
+  if (trending.length !== 0 && Math.random() < influenceChance) {
+    // adjust the randomization by < 0.48
+    clientwant = trending[Math.floor(Math.random() * trending.length)];
+  } else {
+    // regular stuff
+    clientwant = productsArr[Math.floor(Math.random() * productsArr.length)];
+  }
+  return clientwant;
+}
+
+////////////////////////////////////////////////////////////////////////
 function randomCustomer() {
   const randomCustomer = getRandomItem(customers);
-  const randomProduct = getRandomItem(products);
-  clientwant = randomProduct;
+  // const randomProduct = getRandomItem(products);
+  const randomProduct = getRandomProduct(products);
+  // clientwant = randomProduct;
 
   products.forEach((p) => (p.canDecrement = true));
 
@@ -183,49 +217,54 @@ function randomCustomer() {
   }
 }
 
+function updateNews() {
+  const randomNews = getRandomItem(newsPool);
+  currentNews.innerText = `Hot news:  ${randomNews}`;
+
+  return randomNews;
+}
+updateNews();
 updateDisplay();
 
-let customerMonthlyCount;
+let customerMonthlyCount = 7000;
 const custCount = [5000, 7000, 11000];
 
-customerInterval = setInterval(randomCustomer, (customerMonthlyCount = 7000));
-monthlyInterval = setInterval(() => {
-  customerMonthlyCount = getRandomItem(custCount);
+customerMonthlyCount = getRandomItem(custCount);
+customerInterval = setInterval(randomCustomer, customerMonthlyCount);
 
+function resetCustomerInterval(newDelay) {
+  clearInterval(customerInterval);
+  customerInterval = setInterval(randomCustomer, newDelay);
+}
+
+monthlyInterval = setInterval(() => {
+  updateNews();
   let monthlyExpense = calcMonthlyExpenses();
   let message = `Monthly expenses paid ${monthlyExpense} $$$`;
-  totalcash -= monthlyExpense;
+  totalCash -= monthlyExpense;
+
   showWarning(message);
   updateDisplay();
-  if (totalcash <= -80) {
+
+  if (totalCash <= -80) {
     message = "GAME OVER, you ran out of money!";
     document.body.style.backgroundColor = "darkred";
-    clearTimeout(timeoutID);
+    if (timeoutID) clearTimeout(timeoutID);
     showWarning(message, true);
-    btn1.disabled = true;
-    btn2.disabled = true;
-    btn3.disabled = true;
-    btn4.disabled = true;
-    btn11.disabled = true;
-    btn21.disabled = true;
-    btn31.disabled = true;
-    btn41.disabled = true;
+    disableAllButtons();
     clearInterval(monthlyInterval);
     clearInterval(customerInterval);
-    deliverEl.innerHTML = "Game Over";
+    deliverEl.innerText = "Game Over";
+    return;
   }
+  const newDelay = getRandomItem(custCount);
+  resetCustomerInterval(newDelay);
 }, 40000);
 
-// setting hidden attr true and removing it
-// function checkValues(value) {
-//   if (products[value].stock === 0) {
-//     buttons[value].setAttribute("hidden", true);
-//   } else {
-//     buttons[value].removeAttribute("hidden");
-//   }
-// }
 function checkValues(value) {
-  const deliverBtn = document.querySelector(`button[data-type="deliver"][data-id="${value}"]`);
+  const deliverBtn = document.querySelector(
+    `button[data-type="deliver"][data-id="${value}"]`
+  );
   if (!deliverBtn) return;
 
   if (products[value].stock === 0) {
