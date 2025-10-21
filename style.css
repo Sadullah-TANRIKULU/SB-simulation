@@ -240,9 +240,8 @@ p {
 
 #investment button:hover,
 #investment button:focus {
-    /* background-color: var(--color-dark-green); */
     transform: scale(1.03);
-    outline: 1.5px dotted var(--color-dark-green);
+    outline: 2px dotted var(--color-dark-green);
 }
 
 #investment button img {
