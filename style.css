@@ -231,6 +231,7 @@ p {
 #investment button img {
     width: 20px;
     height: auto;
+    pointer-events: none;
 }
 
 #bookstock,
