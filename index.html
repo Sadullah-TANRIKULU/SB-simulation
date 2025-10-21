@@ -33,6 +33,8 @@
       Start Cash: 2x bigger than monthly expenses
     
       No Stock = No monthly expenses
+
+      Refresh the page to start again
       "
       >
         <div class="icon-container">
@@ -50,6 +52,62 @@
         #Skill Checker#
       </h1>
       <p>Run this business to success, if you can!</p>
+
+      <section
+        id="modal"
+        style="
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 3;
+        "
+      >
+        <div
+          style="
+            background: #fff;
+            padding: 8px;
+            margin: 8% auto;
+            width: 40%;
+            min-width: 300px;
+            position: relative;
+            border-radius: 8px;
+          "
+        >
+          <button
+            id="closeBtn"
+            style="position: absolute; top: 5px; right: 10px"
+          >
+            X
+          </button>
+          <h3>How to Play!</h3>
+          <p>Goal: reach +81$ total cash as early as possible</p>
+          <p>Game Over: -80$</p>
+
+          <p>
+            Customers: <br />
+            -sometimes too fast, sometimes too slow, catch opportunities
+            <br />-smart is waiting first customer's want to invest
+          </p>
+
+          <p>
+            Products: can invest all but be aware of monthly expenses
+            <br />Start Cash: 2x bigger than monthly expenses
+          </p>
+          <p>'Book':5 ,</p>
+          <p>'Lemonade':4 ,</p>
+          <p>'Shoes':11 ,</p>
+          <p>'Laptop':17 ,</p>
+          <p>total expense: 37$</p>
+
+          <p>No Stock = No monthly expenses</p>
+
+          <p>Refresh the page to start again</p>
+        </div>
+      </section>
 
       <section id="current">
         <div

@@ -84,6 +84,22 @@ const newsPool = [
   "Coffee consumption surges among remote workers.",
 ];
 
+// Get modal and close button
+const modal = document.getElementById("modal");
+const closeBtn = document.getElementById("closeBtn");
+
+// Close modal on close button click
+closeBtn.onclick = () => {
+  modal.style.display = "none";
+};
+
+// Close modal on outside click
+window.onclick = (event) => {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
 function showWarning(message, permanent = false) {
   if (timeoutID) clearTimeout(timeoutID);
 
