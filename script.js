@@ -56,6 +56,10 @@ const products = [
 ];
 
 const customers = [
+  new Customer("Recep"),
+  new Customer("Muhammed"),
+  new Customer("Sadullah"),
+  new Customer("Ilker"),
   new Customer("Maksym"),
   new Customer("Vitalii"),
   new Customer("Volodymyr"),
@@ -63,7 +67,16 @@ const customers = [
   new Customer("Hamid"),
   new Customer("Ismail"),
   new Customer("Olha"),
-  new Customer("Myhkhailo"),
+  new Customer("Heliya"),
+  new Customer("Pranverë"),
+  new Customer("Karina"),
+  new Customer("Burcu"),
+  new Customer("Denys"),
+  new Customer("Olexandr"),
+  new Customer("Selamawit"),
+  new Customer("Tetiana"),
+  new Customer("Sofiia"),
+  new Customer("Viktoriia"),
   new Customer("Rana"),
   new Customer("Cedooooo"),
 ];
@@ -84,16 +97,13 @@ const newsPool = [
   "Coffee consumption surges among remote workers.",
 ];
 
-// Get modal and close button
 const modal = document.getElementById("modal");
 const closeBtn = document.getElementById("closeBtn");
 
-// Close modal on close button click
 closeBtn.onclick = () => {
   modal.style.display = "none";
 };
 
-// Close modal on outside click
 window.onclick = (event) => {
   if (event.target === modal) {
     modal.style.display = "none";
