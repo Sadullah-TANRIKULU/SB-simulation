@@ -11,12 +11,6 @@ if you enough smart to invest in profitable and sustainable product
 you shouldn't invest all products simultaneously 
 if you dont have enough capital to pay expenses monthly
 
-
-
-## Last what I do
-
-
-
 ## What I plan to do
 
 timing record with a mock user name can be added to list winners
