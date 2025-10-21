@@ -161,7 +161,7 @@ function deliver(productIdx) {
   }
 }
 
-function triggerInvest(e) {
+function triggerInvestAndDeliver(e) {
   if (e.target.tagName !== "BUTTON") return;
 
   const id = Number(e.target.dataset.id);
@@ -175,12 +175,12 @@ function triggerInvest(e) {
     checkValues(id);
   }
 }
-investment.addEventListener("click", triggerInvest);
+investment.addEventListener("click", triggerInvestAndDeliver);
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
-////////////////////////////////////////////////////////////////
+
 function getRandomProduct(productsArr) {
   const randomNews = currentNews.innerText.toLowerCase();
 
@@ -201,12 +201,9 @@ function getRandomProduct(productsArr) {
   return clientwant;
 }
 
-////////////////////////////////////////////////////////////////////////
 function randomCustomer() {
   const randomCustomer = getRandomItem(customers);
-  // const randomProduct = getRandomItem(products);
   const randomProduct = getRandomProduct(products);
-  // clientwant = randomProduct;
 
   products.forEach((p) => (p.canDecrement = true));
 
