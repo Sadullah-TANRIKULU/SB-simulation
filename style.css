@@ -1,11 +1,12 @@
 /* style.css */
 :root {
+
     --color-dark-green: #1c352d;
     --color-sage-green: #a6b28b;
     --color-peach: #f5c9b0;
     --color-ivory: #f9f6f3;
 
-    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family: 'Arial Narrow', Arial, sans-serif;
 
     --spacing-small: 0.5rem;
     --spacing-medium: 1rem;
@@ -112,7 +113,7 @@ h1 img {
 
     0%,
     100% {
-        transform: scale(1.30);
+        transform: scale(1.10);
         opacity: 1;
     }
 
@@ -203,7 +204,7 @@ p {
     width: 100%;
 }
 
-#investment button {
+#investment button[data-type="invest"] {
     background-color: var(--color-sage-green);
     border: none;
     color: var(--color-ivory);
@@ -220,11 +221,28 @@ p {
     justify-content: space-between;
 }
 
+#investment button[data-type="deliver"] {
+    background-color: var(--color-peach);
+    border: none;
+    color: var(--color-dark-green);
+    font-weight: 600;
+    cursor: pointer;
+    padding: var(--spacing-small);
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 -3px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 #investment button:hover,
 #investment button:focus {
-    background-color: var(--color-dark-green);
-    transform: scale(1.05);
-    outline: none;
+    /* background-color: var(--color-dark-green); */
+    transform: scale(1.03);
+    outline: 1.5px dotted var(--color-dark-green);
 }
 
 #investment button img {
@@ -258,6 +276,7 @@ p {
     background-color: var(--color-ivory);
     box-shadow: var(--box-shadow);
     padding: var(--spacing-small);
+    text-align: center;
 }
 
 button,
