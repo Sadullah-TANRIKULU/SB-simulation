@@ -100,6 +100,13 @@ const newsPool = [
 const modal = document.getElementById("modal");
 const closeBtn = document.getElementById("closeBtn");
 
+const h1 = document.getElementById("h1");
+
+///////////////////////////////////////////////////////////////////
+h1.addEventListener("click", () => {
+  modal.style.display = "block";
+})
+
 closeBtn.onclick = () => {
   modal.style.display = "none";
 };
@@ -109,7 +116,7 @@ window.onclick = (event) => {
     modal.style.display = "none";
   }
 };
-
+////////////////////////////////////////////////////////////////////
 function showWarning(message, permanent = false) {
   if (timeoutID) clearTimeout(timeoutID);
 
@@ -123,7 +130,7 @@ function showWarning(message, permanent = false) {
     }, 2000);
   }
 }
-
+//////////////////////////////////////////////////////////////////////////
 function updateDisplay() {
   totalCashDisplay.innerText = `Total: ${totalCash} $`;
   bookStock.innerText = `${products[0].name} Stock: ${products[0].stock}`;
@@ -132,7 +139,7 @@ function updateDisplay() {
   laptopStock.innerText = `${products[3].name} Stock: ${products[3].stock}`;
   checkAllButtons();
 }
-
+//////////////////////////////////////////////////////////////////////////////
 function calcMonthlyExpenses() {
   let totalExpense = 0;
   for (const product of products) {
@@ -142,13 +149,13 @@ function calcMonthlyExpenses() {
   }
   return totalExpense;
 }
-
+///////////////////////////////////////////////////////////////////////////////////
 function disableAllButtons() {
   [btn1, btn2, btn3, btn4, btn11, btn21, btn31, btn41].forEach((btn) => {
     if (btn) btn.disabled = true;
   });
 }
-
+//////////////////////////////////////////////////////////////////////////////////
 function invest(productIdx) {
   if (totalCash >= products[productIdx].cost) {
     products[productIdx].stock += investAmount;
@@ -158,7 +165,7 @@ function invest(productIdx) {
     showWarning(`Not enough money (${totalCash}$) to invest!`);
   }
 }
-
+/////////////////////////////////////////////////////////////////////////////////////
 function deliver(productIdx) {
   if (!clientwant) return;
   const product = products[productIdx];
@@ -186,7 +193,7 @@ function deliver(productIdx) {
     );
   }
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////
 function triggerInvestAndDeliver(e) {
   if (e.target.tagName !== "BUTTON") return;
 
@@ -202,11 +209,11 @@ function triggerInvestAndDeliver(e) {
   }
 }
 investment.addEventListener("click", triggerInvestAndDeliver);
-
+//////////////////////////////////////////////////////////////////////////////////////////////
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 function getRandomProduct(productsArr) {
   const randomNews = currentNews.innerText.toLowerCase();
 
@@ -214,9 +221,8 @@ function getRandomProduct(productsArr) {
     const lowerProduct = p.name.toLowerCase();
     return randomNews.includes(lowerProduct);
   });
-
   const influenceChance = 0.489;
-
+  
   if (trending.length !== 0 && Math.random() < influenceChance) {
     // adjust the randomization by < 0.48
     clientwant = trending[Math.floor(Math.random() * trending.length)];
@@ -226,6 +232,7 @@ function getRandomProduct(productsArr) {
   }
   return clientwant;
 }
+///////////////////////////////////////////////////////////////////////////////////////////
 
 function randomCustomer() {
   const randomCustomer = getRandomItem(customers);
@@ -239,7 +246,7 @@ function randomCustomer() {
     deliverEl.innerText = `No customer yet`;
   }
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 function updateNews() {
   const randomNews = getRandomItem(newsPool);
   currentNews.innerText = `Hot news:  ${randomNews}`;
@@ -248,7 +255,7 @@ function updateNews() {
 }
 updateNews();
 updateDisplay();
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 let customerMonthlyCount = 7000;
 const custCount = [5000, 7000, 11000];
 
@@ -259,7 +266,7 @@ function resetCustomerInterval(newDelay) {
   clearInterval(customerInterval);
   customerInterval = setInterval(randomCustomer, newDelay);
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 monthlyInterval = setInterval(() => {
   updateNews();
   let monthlyExpense = calcMonthlyExpenses();
@@ -283,7 +290,7 @@ monthlyInterval = setInterval(() => {
   const newDelay = getRandomItem(custCount);
   resetCustomerInterval(newDelay);
 }, 40000);
-
+/////////////////////////////////////////////////////////////////////////
 function checkValues(value) {
   const deliverBtn = document.querySelector(
     `button[data-type="deliver"][data-id="${value}"]`
