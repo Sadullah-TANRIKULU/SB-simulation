@@ -9,6 +9,7 @@ const laptopStock = document.getElementById("laptopstock");
 const warningSection = document.getElementById("warning");
 const deliverEl = document.getElementById("deliver");
 const currentNews = document.getElementById("current-news");
+// const gif = document.getElementById("gif");
 
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");

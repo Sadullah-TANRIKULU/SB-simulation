@@ -284,3 +284,17 @@ h1,
 #totalcash {
     cursor: pointer;
 }
+
+/* #gif {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+#gif img {
+    position: absolute;
+    top: 0;
+    width: 70px;
+    left: 30;
+} */
