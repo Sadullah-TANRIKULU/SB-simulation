@@ -1,3 +1,26 @@
+import bookImg from "url:./assets/book.png";
+import lemonadeImg from "url:./assets/lemonade.png";
+import shoesImg from "url:./assets/shoes.png";
+import laptopImg from "url:./assets/linux-laptop.png";
+
+// Add at the top with other variables
+let gameStartTime = Date.now();
+let timerInterval;
+
+// Add this function to format and display time
+function updateTimer() {
+  const elapsed = Date.now() - gameStartTime;
+
+  const hours = Math.floor(elapsed / (1000 * 60 * 60));
+  const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
+
+  const timerDisplay = document.getElementById("timer");
+  timerDisplay.innerText = `⏱ ${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
+
 let totalCash = 74;
 const investAmount = 5;
 
@@ -19,6 +42,10 @@ const btn11 = document.getElementById("btn11");
 const btn21 = document.getElementById("btn21");
 const btn31 = document.getElementById("btn31");
 const btn41 = document.getElementById("btn41");
+const btn111 = document.getElementById("btn111");
+const btn211 = document.getElementById("btn211");
+const btn311 = document.getElementById("btn311");
+const btn411 = document.getElementById("btn411");
 
 totalCashDisplay.innerText = `Total: ${totalCash} $`;
 
@@ -50,10 +77,10 @@ class Customer {
 }
 
 const products = [
-  new Product("Book", 17, 10, 5, "./assets/book.png"),
-  new Product("Lemonade", 10, 2, 4, "./assets/lemonade.png"),
-  new Product("Shoes", 23, 13, 11, "./assets/shoes.png"),
-  new Product("Laptop", 28, 15, 17, "./assets/linux-laptop.png"),
+  new Product("Book", 17, 10, 5, bookImg),
+  new Product("Lemonade", 10, 2, 4, lemonadeImg),
+  new Product("Shoes", 23, 13, 11, shoesImg),
+  new Product("Laptop", 28, 15, 17, laptopImg),
 ];
 
 const customers = [
@@ -106,7 +133,7 @@ const h1 = document.getElementById("h1");
 ///////////////////////////////////////////////////////////////////
 h1.addEventListener("click", () => {
   modal.style.display = "block";
-})
+});
 
 closeBtn.onclick = () => {
   modal.style.display = "none";
@@ -140,6 +167,11 @@ function updateDisplay() {
   laptopStock.innerText = `${products[3].name} Stock: ${products[3].stock}`;
   checkAllButtons();
 }
+//////////////////////////////////////////////////////////////////////////////////
+// Start the timer (add this after updateDisplay())
+timerInterval = setInterval(updateTimer, 1000);
+updateTimer(); // Initial display
+
 //////////////////////////////////////////////////////////////////////////////
 function calcMonthlyExpenses() {
   let totalExpense = 0;
@@ -152,9 +184,23 @@ function calcMonthlyExpenses() {
 }
 ///////////////////////////////////////////////////////////////////////////////////
 function disableAllButtons() {
-  [btn1, btn2, btn3, btn4, btn11, btn21, btn31, btn41].forEach((btn) => {
+  [
+    btn1,
+    btn2,
+    btn3,
+    btn4,
+    btn11,
+    btn21,
+    btn31,
+    btn41,
+    btn111,
+    btn211,
+    btn311,
+    btn411,
+  ].forEach((btn) => {
     if (btn) btn.disabled = true;
   });
+  clearInterval(timerInterval); // Stop timer when game ends
 }
 //////////////////////////////////////////////////////////////////////////////////
 function invest(productIdx) {
@@ -176,8 +222,11 @@ function deliver(productIdx) {
     product.stock--;
     product.canDecrement = false;
     totalCash += product.price;
+    if (totalCash >= 0) {
+      totalCashDisplay.style.backgroundColor = "#00918E";
+    }
     updateDisplay();
-    if (totalCash > 81) {
+    if (totalCash > 101) {
       let message = "YOU WIN, promoted master class!";
       document.body.style.backgroundColor = "limegreen";
       clearTimeout(timeoutID);
@@ -195,6 +244,18 @@ function deliver(productIdx) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////
+function sellBack(productIdx) {
+  const product = products[productIdx];
+  if (product.stock > 2) {
+    product.stock = 0;
+    totalCash += product.price;
+    if (totalCash >= 0) {
+      totalCashDisplay.style.backgroundColor = "#00918E";
+    }
+    updateDisplay();
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
 function triggerInvestAndDeliver(e) {
   if (e.target.tagName !== "BUTTON") return;
 
@@ -206,6 +267,9 @@ function triggerInvestAndDeliver(e) {
     checkValues(id);
   } else if (type === "deliver") {
     deliver(id);
+    checkValues(id);
+  } else if (type === "sellback") {
+    sellBack(id);
     checkValues(id);
   }
 }
@@ -223,7 +287,7 @@ function getRandomProduct(productsArr) {
     return randomNews.includes(lowerProduct);
   });
   const influenceChance = 0.489;
-  
+
   if (trending.length !== 0 && Math.random() < influenceChance) {
     // adjust the randomization by < 0.48
     clientwant = trending[Math.floor(Math.random() * trending.length)];
@@ -235,6 +299,7 @@ function getRandomProduct(productsArr) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+let currentBg = true;
 function randomCustomer() {
   const randomCustomer = getRandomItem(customers);
   const randomProduct = getRandomProduct(products);
@@ -242,7 +307,24 @@ function randomCustomer() {
   products.forEach((p) => (p.canDecrement = true));
 
   if (randomCustomer && randomProduct) {
-    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name} <img src="${clientwant.image}" width="20" > <br>`;
+    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${
+      clientwant.name
+    } <img src="${String(clientwant.image)}" width="35" ><br>`;
+
+    switch (currentBg) {
+      case true:
+        deliverEl.style.backgroundColor = "rgb(255, 253, 208)";
+        currentBg = false;
+        break;
+      case false:
+        deliverEl.style.backgroundColor = "rgb(77, 213, 153)";
+        currentBg = true;
+        break;
+      default:
+        deliverEl.style.backgroundColor = "rgb(77, 213, 153)";
+        currentBg = true;
+        break;
+    }
   } else {
     deliverEl.innerText = `No customer yet`;
   }
@@ -273,11 +355,13 @@ monthlyInterval = setInterval(() => {
   let monthlyExpense = calcMonthlyExpenses();
   let message = `Monthly expenses paid ${monthlyExpense} $$$`;
   totalCash -= monthlyExpense;
-
+  if (totalCash < 0) {
+    totalCashDisplay.style.backgroundColor = "#ff0000";
+  }
   showWarning(message);
   updateDisplay();
 
-  if (totalCash <= -80) {
+  if (totalCash <= -40) {
     message = "GAME OVER, you ran out of money!";
     document.body.style.backgroundColor = "darkred";
     if (timeoutID) clearTimeout(timeoutID);
