@@ -17,19 +17,6 @@ timing record with a mock user name can be added to list winners
 
 can save the players current state(total cash)
 
-player can sell back products to earn some money
-
-customer delivery display background toggler color
-
-should be able to sell some of stocks at a loss-profit
-
-give gap buttons inbetween
-
-stock loss-profit sell button color hot red
-
-game over limit -40 $
-
 add a pause button
 
 parcel build
-

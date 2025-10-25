@@ -1,4 +1,4 @@
-let totalCash = 74;
+let totalCash = 10;
 const investAmount = 5;
 
 const totalCashDisplay = document.getElementById("totalcash");
@@ -19,6 +19,10 @@ const btn11 = document.getElementById("btn11");
 const btn21 = document.getElementById("btn21");
 const btn31 = document.getElementById("btn31");
 const btn41 = document.getElementById("btn41");
+const btn111 = document.getElementById("btn111");
+const btn211 = document.getElementById("btn211");
+const btn311 = document.getElementById("btn311");
+const btn411 = document.getElementById("btn411");
 
 totalCashDisplay.innerText = `Total: ${totalCash} $`;
 
@@ -152,7 +156,20 @@ function calcMonthlyExpenses() {
 }
 ///////////////////////////////////////////////////////////////////////////////////
 function disableAllButtons() {
-  [btn1, btn2, btn3, btn4, btn11, btn21, btn31, btn41].forEach((btn) => {
+  [
+    btn1,
+    btn2,
+    btn3,
+    btn4,
+    btn11,
+    btn21,
+    btn31,
+    btn41,
+    btn111,
+    btn211,
+    btn311,
+    btn411,
+  ].forEach((btn) => {
     if (btn) btn.disabled = true;
   });
 }
@@ -176,6 +193,9 @@ function deliver(productIdx) {
     product.stock--;
     product.canDecrement = false;
     totalCash += product.price;
+    if (totalCash >= 0) {
+      totalCashDisplay.style.backgroundColor = "#00918E";
+    }
     updateDisplay();
     if (totalCash > 81) {
       let message = "YOU WIN, promoted master class!";
@@ -195,6 +215,18 @@ function deliver(productIdx) {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////
+function sellBack(productIdx) {
+  const product = products[productIdx];
+  if (product.stock > 2) {
+    product.stock = 0;
+    totalCash += product.price;
+    if (totalCash >= 0) {
+      totalCashDisplay.style.backgroundColor = "#00918E";
+    }
+    updateDisplay();
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
 function triggerInvestAndDeliver(e) {
   if (e.target.tagName !== "BUTTON") return;
 
@@ -206,6 +238,9 @@ function triggerInvestAndDeliver(e) {
     checkValues(id);
   } else if (type === "deliver") {
     deliver(id);
+    checkValues(id);
+  } else if (type === "sellback") {
+    sellBack(id);
     checkValues(id);
   }
 }
@@ -289,11 +324,13 @@ monthlyInterval = setInterval(() => {
   let monthlyExpense = calcMonthlyExpenses();
   let message = `Monthly expenses paid ${monthlyExpense} $$$`;
   totalCash -= monthlyExpense;
-
+  if (totalCash < 0) {
+    totalCashDisplay.style.backgroundColor = "#ff0000";
+  }
   showWarning(message);
   updateDisplay();
 
-  if (totalCash <= -80) {
+  if (totalCash <= -40) {
     message = "GAME OVER, you ran out of money!";
     document.body.style.backgroundColor = "darkred";
     if (timeoutID) clearTimeout(timeoutID);

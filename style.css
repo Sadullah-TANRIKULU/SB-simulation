@@ -5,6 +5,7 @@
     --color-sage: #00918E;
     --color-hot: #FFDC34;
     --color-light: #4DD599;
+    --color-very-hot: #ff0000;
 
     --font-family: 'Arial Narrow', Arial, sans-serif;
 
@@ -238,6 +239,23 @@ p {
     justify-content: space-between;
 }
 
+#investment button[data-type="sellback"] {
+    background-color: var(--color-very-hot);
+    border: none;
+    color: var(--color-dark);
+    font-weight: 600;
+    cursor: pointer;
+    padding: var(--spacing-small);
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 -3px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 #investment button:hover,
 #investment button:focus {
     transform: scale(1.03);
@@ -260,7 +278,14 @@ p {
     border-radius: var(--border-radius);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     text-indent: 5px;
+    gap: 2px;
+}
 
+#book,
+#lemonade,
+#shoes,
+#laptop {
+    gap: 3px;
 }
 
 #deliver {
