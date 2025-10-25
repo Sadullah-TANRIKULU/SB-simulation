@@ -106,7 +106,7 @@ const h1 = document.getElementById("h1");
 ///////////////////////////////////////////////////////////////////
 h1.addEventListener("click", () => {
   modal.style.display = "block";
-})
+});
 
 closeBtn.onclick = () => {
   modal.style.display = "none";
@@ -223,7 +223,7 @@ function getRandomProduct(productsArr) {
     return randomNews.includes(lowerProduct);
   });
   const influenceChance = 0.489;
-  
+
   if (trending.length !== 0 && Math.random() < influenceChance) {
     // adjust the randomization by < 0.48
     clientwant = trending[Math.floor(Math.random() * trending.length)];
@@ -235,6 +235,7 @@ function getRandomProduct(productsArr) {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+let currentBg = true;
 function randomCustomer() {
   const randomCustomer = getRandomItem(customers);
   const randomProduct = getRandomProduct(products);
@@ -243,6 +244,21 @@ function randomCustomer() {
 
   if (randomCustomer && randomProduct) {
     deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name} <img src="${clientwant.image}" width="20" > <br>`;
+
+    switch (currentBg) {
+      case true:
+        deliverEl.style.backgroundColor = "rgb(255, 253, 208)";
+        currentBg = false;
+        break;
+      case false:
+        deliverEl.style.backgroundColor = "rgb(77, 213, 153)";
+        currentBg = true;
+        break;
+      default:
+        deliverEl.style.backgroundColor = "rgb(77, 213, 153)";
+        currentBg = true;
+        break;
+    }
   } else {
     deliverEl.innerText = `No customer yet`;
   }
