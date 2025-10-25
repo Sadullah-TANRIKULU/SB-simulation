@@ -1,0 +1,36 @@
+{
+  "name": "sb-simulation",
+  "version": "1.0.0",
+  "description": "small business simulation game",
+  "keywords": [
+    "business",
+    "small",
+    "medium",
+    "large",
+    "sale",
+    "stock",
+    "loss-profit",
+    "browser",
+    "game"
+  ],
+  "homepage": "https://github.com/Sadullah-TANRIKULU/SB-simulation#readme",
+  "bugs": {
+    "url": "https://github.com/Sadullah-TANRIKULU/SB-simulation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sadullah-TANRIKULU/SB-simulation.git"
+  },
+  "license": "MIT",
+  "author": "Sadullah-TANRIKULU",
+  "type": "commonjs",
+  "source": "script.js",
+  "scripts": {
+    "start": "parcel ./index.html",
+    "build": "parcel build ./index.html",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  }
+}

@@ -1,4 +1,10 @@
-let totalCash = 10;
+import bookImg from 'url:./assets/book.png';
+import lemonadeImg from 'url:./assets/lemonade.png';
+import shoesImg from 'url:./assets/shoes.png';
+import laptopImg from 'url:./assets/linux-laptop.png';
+
+
+let totalCash = 74;
 const investAmount = 5;
 
 const totalCashDisplay = document.getElementById("totalcash");
@@ -54,10 +60,10 @@ class Customer {
 }
 
 const products = [
-  new Product("Book", 17, 10, 5, "./assets/book.png"),
-  new Product("Lemonade", 10, 2, 4, "./assets/lemonade.png"),
-  new Product("Shoes", 23, 13, 11, "./assets/shoes.png"),
-  new Product("Laptop", 28, 15, 17, "./assets/linux-laptop.png"),
+  new Product("Book", 17, 10, 5, bookImg),
+  new Product("Lemonade", 10, 2, 4, lemonadeImg),
+  new Product("Shoes", 23, 13, 11, shoesImg),
+  new Product("Laptop", 28, 15, 17, laptopImg),
 ];
 
 const customers = [
@@ -197,7 +203,7 @@ function deliver(productIdx) {
       totalCashDisplay.style.backgroundColor = "#00918E";
     }
     updateDisplay();
-    if (totalCash > 81) {
+    if (totalCash > 101) {
       let message = "YOU WIN, promoted master class!";
       document.body.style.backgroundColor = "limegreen";
       clearTimeout(timeoutID);
@@ -278,7 +284,9 @@ function randomCustomer() {
   products.forEach((p) => (p.canDecrement = true));
 
   if (randomCustomer && randomProduct) {
-    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name} <img src="${clientwant.image}" width="20" > <br>`;
+    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name} <img src="${String(clientwant.image)}" width="35" ><br>`;
+    
+    
 
     switch (currentBg) {
       case true:
