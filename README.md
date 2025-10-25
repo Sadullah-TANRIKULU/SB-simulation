@@ -18,5 +18,3 @@ timing record with a mock user name can be added to list winners
 can save the players current state(total cash)
 
 add a pause button
-
-parcel build

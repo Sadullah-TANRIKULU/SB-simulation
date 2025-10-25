@@ -1,8 +1,25 @@
-import bookImg from 'url:./assets/book.png';
-import lemonadeImg from 'url:./assets/lemonade.png';
-import shoesImg from 'url:./assets/shoes.png';
-import laptopImg from 'url:./assets/linux-laptop.png';
+import bookImg from "url:./assets/book.png";
+import lemonadeImg from "url:./assets/lemonade.png";
+import shoesImg from "url:./assets/shoes.png";
+import laptopImg from "url:./assets/linux-laptop.png";
 
+// Add at the top with other variables
+let gameStartTime = Date.now();
+let timerInterval;
+
+// Add this function to format and display time
+function updateTimer() {
+  const elapsed = Date.now() - gameStartTime;
+
+  const hours = Math.floor(elapsed / (1000 * 60 * 60));
+  const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
+
+  const timerDisplay = document.getElementById("timer");
+  timerDisplay.innerText = `⏱ ${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
 
 let totalCash = 74;
 const investAmount = 5;
@@ -150,6 +167,11 @@ function updateDisplay() {
   laptopStock.innerText = `${products[3].name} Stock: ${products[3].stock}`;
   checkAllButtons();
 }
+//////////////////////////////////////////////////////////////////////////////////
+// Start the timer (add this after updateDisplay())
+timerInterval = setInterval(updateTimer, 1000);
+updateTimer(); // Initial display
+
 //////////////////////////////////////////////////////////////////////////////
 function calcMonthlyExpenses() {
   let totalExpense = 0;
@@ -178,6 +200,7 @@ function disableAllButtons() {
   ].forEach((btn) => {
     if (btn) btn.disabled = true;
   });
+  clearInterval(timerInterval); // Stop timer when game ends
 }
 //////////////////////////////////////////////////////////////////////////////////
 function invest(productIdx) {
@@ -284,9 +307,9 @@ function randomCustomer() {
   products.forEach((p) => (p.canDecrement = true));
 
   if (randomCustomer && randomProduct) {
-    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${clientwant.name} <img src="${String(clientwant.image)}" width="35" ><br>`;
-    
-    
+    deliverEl.innerHTML = `<br>${randomCustomer.name} wants  ${
+      clientwant.name
+    } <img src="${String(clientwant.image)}" width="35" ><br>`;
 
     switch (currentBg) {
       case true:
