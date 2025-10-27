@@ -134,7 +134,7 @@ p {
 #current-news {
     background-color: var(--color-hot);
     color: #ff0000;
-    font-size: 1.20rem;
+    font-size: 1.15rem;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
@@ -309,17 +309,3 @@ h1,
 #totalcash {
     cursor: pointer;
 }
-
-/* #gif {
-    position: relative;
-    z-index: 5;
-    width: 100%;
-    top: 0;
-    left: 0;
-}
-#gif img {
-    position: absolute;
-    top: 0;
-    width: 70px;
-    left: 30;
-} */
