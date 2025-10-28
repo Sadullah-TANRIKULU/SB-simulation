@@ -3,11 +3,9 @@ import lemonadeImg from "url:./assets/lemonade.png";
 import shoesImg from "url:./assets/shoes.png";
 import laptopImg from "url:./assets/linux-laptop.png";
 
-// Add at the top with other variables
 let gameStartTime = Date.now();
 let timerInterval;
 
-// Add this function to format and display time
 function updateTimer() {
   const elapsed = Date.now() - gameStartTime;
 
@@ -32,7 +30,6 @@ const laptopStock = document.getElementById("laptopstock");
 const warningSection = document.getElementById("warning");
 const deliverEl = document.getElementById("deliver");
 const currentNews = document.getElementById("current-news");
-// const gif = document.getElementById("gif");
 
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
@@ -113,6 +110,7 @@ let clientwant = null;
 let timeoutID;
 let monthlyInterval;
 let customerInterval;
+let emergencyInterval;
 
 const newsPool = [
   "Tech boom increases demand for laptop and smart devices.",
@@ -168,9 +166,8 @@ function updateDisplay() {
   checkAllButtons();
 }
 //////////////////////////////////////////////////////////////////////////////////
-// Start the timer (add this after updateDisplay())
 timerInterval = setInterval(updateTimer, 1000);
-updateTimer(); // Initial display
+updateTimer();
 
 //////////////////////////////////////////////////////////////////////////////
 function calcMonthlyExpenses() {
@@ -200,7 +197,7 @@ function disableAllButtons() {
   ].forEach((btn) => {
     if (btn) btn.disabled = true;
   });
-  clearInterval(timerInterval); // Stop timer when game ends
+  clearInterval(timerInterval);
 }
 //////////////////////////////////////////////////////////////////////////////////
 function invest(productIdx) {
@@ -246,7 +243,7 @@ function deliver(productIdx) {
 /////////////////////////////////////////////////////////////////////////////////////////
 function sellBack(productIdx) {
   const product = products[productIdx];
-  if (product.stock > 2) {
+  if (product.stock > 1) {
     product.stock = 0;
     totalCash += product.price;
     if (totalCash >= 0) {
@@ -286,13 +283,11 @@ function getRandomProduct(productsArr) {
     const lowerProduct = p.name.toLowerCase();
     return randomNews.includes(lowerProduct);
   });
-  const influenceChance = 0.489;
+  const influenceChance = 0.611;
 
   if (trending.length !== 0 && Math.random() < influenceChance) {
-    // adjust the randomization by < 0.48
     clientwant = trending[Math.floor(Math.random() * trending.length)];
   } else {
-    // regular stuff
     clientwant = productsArr[Math.floor(Math.random() * productsArr.length)];
   }
   return clientwant;
@@ -375,6 +370,16 @@ monthlyInterval = setInterval(() => {
   const newDelay = getRandomItem(custCount);
   resetCustomerInterval(newDelay);
 }, 40000);
+/////////////////////////////////////////////////////////////////////////
+emergencyInterval = setInterval(() => {
+  if (totalCash < 10) {
+    totalCash += 10;
+    alert(
+      "Emergency funding received: $10 injected to keep your business running!"
+    );
+    updateDisplay();
+  }
+}, 80000);
 /////////////////////////////////////////////////////////////////////////
 function checkValues(value) {
   const deliverBtn = document.querySelector(
