@@ -250,6 +250,17 @@ function sellBack(productIdx) {
       totalCashDisplay.style.backgroundColor = "#00918E";
     }
     updateDisplay();
+    if (totalCash > 101) {
+      let message = "YOU WIN, promoted master class!";
+      document.body.style.backgroundColor = "limegreen";
+      clearTimeout(timeoutID);
+      showWarning(message, true);
+      disableAllButtons();
+      clearInterval(monthlyInterval);
+      clearInterval(customerInterval);
+      deliverEl.innerText = "You Win";
+      return;
+    }
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
