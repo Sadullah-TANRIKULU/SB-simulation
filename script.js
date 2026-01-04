@@ -4,6 +4,11 @@ import shoesImg from "url:./assets/shoes.png";
 import laptopImg from "url:./assets/linux-laptop.png";
 import { createClient } from "@supabase/supabase-js";
 
+import { Buffer } from "buffer";
+if (typeof globalThis.Buffer === "undefined") {
+  globalThis.Buffer = Buffer;
+}
+
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
