@@ -2,6 +2,20 @@ import bookImg from "url:./assets/book.png";
 import lemonadeImg from "url:./assets/lemonade.png";
 import shoesImg from "url:./assets/shoes.png";
 import laptopImg from "url:./assets/linux-laptop.png";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error("Supabase credentials missing! Check your .env file.");
+}
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+const playerId =
+  localStorage.getItem("sb_simulation_player_id") || crypto.randomUUID();
+localStorage.setItem("sb_simulation_player_id", playerId);
 
 let gameStartTime = Date.now();
 let timerInterval;
@@ -143,6 +157,40 @@ window.onclick = (event) => {
   }
 };
 ////////////////////////////////////////////////////////////////////
+
+async function triggerWin() {
+  let message = "YOU WIN, promoted master class!";
+  document.body.style.backgroundColor = "limegreen";
+
+  clearTimeout(timeoutID);
+  showWarning(message, true);
+  disableAllButtons();
+  clearInterval(monthlyInterval);
+  clearInterval(customerInterval);
+  deliverEl.innerText = "You Win";
+
+  const finalSeconds = Math.floor((Date.now() - gameStartTime) / 1000);
+
+  setTimeout(async () => {
+    const nickname = prompt(
+      "CEO Rank Achieved! Enter your name:",
+      "Anonymous Boss"
+    );
+    if (nickname) {
+      await supabase.from("leaderboard").insert([
+        {
+          player_id: playerId,
+          nickname: nickname,
+          completion_time_seconds: finalSeconds,
+        },
+      ]);
+    }
+    modal.style.display = "block";
+    displayLeaderboard();
+  }, 500);
+}
+
+////////////////////////////////////////////////////////////////////
 function showWarning(message, permanent = false) {
   if (timeoutID) clearTimeout(timeoutID);
 
@@ -224,14 +272,8 @@ function deliver(productIdx) {
     }
     updateDisplay();
     if (totalCash > 101) {
-      let message = "YOU WIN, promoted master class!";
-      document.body.style.backgroundColor = "limegreen";
-      clearTimeout(timeoutID);
-      showWarning(message, true);
-      disableAllButtons();
-      clearInterval(monthlyInterval);
-      clearInterval(customerInterval);
-      deliverEl.innerText = "You Win";
+      triggerWin();
+
       return;
     }
   } else if (product.stock <= 0) {
@@ -251,14 +293,8 @@ function sellBack(productIdx) {
     }
     updateDisplay();
     if (totalCash > 101) {
-      let message = "YOU WIN, promoted master class!";
-      document.body.style.backgroundColor = "limegreen";
-      clearTimeout(timeoutID);
-      showWarning(message, true);
-      disableAllButtons();
-      clearInterval(monthlyInterval);
-      clearInterval(customerInterval);
-      deliverEl.innerText = "You Win";
+      triggerWin();
+
       return;
     }
   }
@@ -412,3 +448,43 @@ function checkAllButtons() {
 }
 
 checkAllButtons();
+/////////////////////////////////////////////////////////////////////////////////
+
+async function displayLeaderboard() {
+  const tbody = document.getElementById("leaderboardBody");
+  if (!tbody) return;
+
+  tbody.innerHTML =
+    "<tr><td colspan='3' style='text-align:center;'>Loading...</td></tr>";
+
+  const { data, error } = await supabase
+    .from("leaderboard")
+    .select("nickname, completion_time_seconds")
+    .order("completion_time_seconds", { ascending: true })
+    .limit(10);
+
+  if (error) {
+    tbody.innerHTML =
+      "<tr><td colspan='3' style='color:red;'>Error connecting to Supabase</td></tr>";
+    return;
+  }
+
+  tbody.innerHTML = data
+    .map(
+      (entry, index) => `
+        <tr style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <td style="padding: 8px;">${index + 1}</td>
+            <td style="padding: 8px;">${entry.nickname}</td>
+            <td style="padding: 8px;">${entry.completion_time_seconds}s</td>
+        </tr>
+    `
+    )
+    .join("");
+}
+
+// Initialize on load and link the refresh button from the HTML I provided earlier
+displayLeaderboard();
+const refreshBtn = document.getElementById("refreshLeaderboard");
+if (refreshBtn) {
+  refreshBtn.addEventListener("click", displayLeaderboard);
+}
