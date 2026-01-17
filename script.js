@@ -180,7 +180,7 @@ async function triggerWin() {
   setTimeout(async () => {
     const nickname = prompt(
       "CEO Rank Achieved! Enter your name:",
-      "Anonymous Boss",
+      "Anonymous Boss"
     );
     if (nickname) {
       await supabase.from("leaderboard").insert([
@@ -483,7 +483,7 @@ async function displayLeaderboard() {
             <td style="padding: 8px;">${entry.nickname}</td>
             <td style="padding: 8px;">${entry.completion_time_seconds}s</td>
         </tr>
-    `,
+    `
     )
     .join("");
 }
