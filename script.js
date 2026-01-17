@@ -457,6 +457,7 @@ checkAllButtons();
 /////////////////////////////////////////////////////////////////////////////////
 
 async function displayLeaderboard() {
+  
   const tbody = document.getElementById("leaderboardBody");
   if (!tbody) return;
 
