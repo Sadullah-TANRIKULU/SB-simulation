@@ -123,13 +123,14 @@ const customers = [
   new Customer("Viktoriia"),
   new Customer("Rana"),
   new Customer("Cedooooo"),
+  new Customer("Cemil"),
+  new Customer("Cemaaaaal123"),
 ];
 
 let clientwant = null;
 let timeoutID;
 let monthlyInterval;
 let customerInterval;
-let emergencyInterval;
 
 const newsPool = [
   "Tech boom increases demand for laptop and smart devices.",
@@ -138,7 +139,7 @@ const newsPool = [
   "Everything's fine as usual, no special news",
   "New fashion trends boost shoes sales worldwide.",
   "Reading culture rises — book stores see record profits.",
-  "Cycling becomes the new fitness craze of the decade.",
+  "Cycling-lemonade becomes the new fitness craze of the decade.",
   "Coffee consumption surges among remote workers.",
 ];
 
@@ -386,8 +387,8 @@ function updateNews() {
 updateNews();
 updateDisplay();
 ///////////////////////////////////////////////////////////////////////////////////////////////
-let customerMonthlyCount = 7000;
-const custCount = [5000, 7000, 11000];
+let customerMonthlyCount = 4000;
+const custCount = [4000, 5000, 7000, 11000];
 
 customerMonthlyCount = getRandomItem(custCount);
 customerInterval = setInterval(randomCustomer, customerMonthlyCount);
