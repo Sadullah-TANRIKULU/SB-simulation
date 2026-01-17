@@ -74,7 +74,7 @@ class Product {
     expense,
     price,
     image = "./assets/default-product.png",
-    stock = 0
+    stock = 0,
   ) {
     this.name = name;
     this.cost = cost;
@@ -284,7 +284,7 @@ function deliver(productIdx) {
     }
   } else if (product.stock <= 0) {
     showWarning(
-      `Not enough product (${product.stock} ${product.name}) in stock`
+      `Not enough product (${product.stock} ${product.name}) in stock`,
     );
   }
 }
@@ -428,7 +428,7 @@ emergencyInterval = setInterval(() => {
   if (totalCash < 10) {
     totalCash += 10;
     alert(
-      "Emergency funding received: $10 injected to keep your business running!"
+      "Emergency funding received: $10 injected to keep your business running!",
     );
     updateDisplay();
   }
@@ -436,7 +436,7 @@ emergencyInterval = setInterval(() => {
 /////////////////////////////////////////////////////////////////////////
 function checkValues(value) {
   const deliverBtn = document.querySelector(
-    `button[data-type="deliver"][data-id="${value}"]`
+    `button[data-type="deliver"][data-id="${value}"]`,
   );
   if (!deliverBtn) return;
 
