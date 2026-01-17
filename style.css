@@ -46,9 +46,6 @@ main {
     justify-content: flex-start;
     align-items: center;
     width: 90vw;
-    background-image: url("./assets/OH3E9O0.jpg");
-    background-size: cover;
-    background-position: center;
 }
 
 h1 {
